@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, forgotPassword, resetPassword, login, me, logout } = require('../controllers/authController');
+const { register, forgotPassword, resetPassword, login, me, logout, getall } = require('../controllers/authController');
 const isAuthenticated = require('../middlewares/auth');
 
 const authRoutes = express.Router();
@@ -11,4 +11,5 @@ authRoutes.post('/forgotpassword', forgotPassword);
 authRoutes.post('/resetpassword/:token', resetPassword);
 authRoutes.get('/me',isAuthenticated, me);
 authRoutes.post('/logout', isAuthenticated, logout);
+authRoutes.get('/',getall)
 module.exports = authRoutes;    
