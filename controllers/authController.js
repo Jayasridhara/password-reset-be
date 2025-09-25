@@ -4,7 +4,7 @@ const User = require('../models/User');
 const crypto = require('crypto'); // Built-in Node.js module
 const sendEmail = require('../utils/sendEmail');
 const generateToken = require('../utils/generateToken');
-
+require('dotenv').config();
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
