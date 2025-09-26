@@ -11,7 +11,7 @@ const app = express();
 app.use(cors({
     origin: process.env.WEB_APP_URL ,
      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-     credentials: true// Allow requests only from your frontend domain
+     credentials: true
 }));
 
 app.use(express.json()); // Body parser for JSON requests
