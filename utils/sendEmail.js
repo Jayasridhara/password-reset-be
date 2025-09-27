@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail = async ({ email, subject, message }) => {
     const mailOptions = {
-        from: process.env.EMAIL_PASS,
+        from: `"Password Reset" <${process.env.EMAIL_USER}>`, // must be the Gmail sender
         to: email,
         subject,
         html: message,
