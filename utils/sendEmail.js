@@ -12,9 +12,15 @@
           user: "apikey", // literally "apikey"
           pass: process.env.SENDGRID_API_KEY, // your SendGrid API key
         },
+        connectionTimeout: 10000, // 10 seconds
+        greetingTimeout: 10000,
+        socketTimeout: 10000,
+        debug: true, // Enable debug logs
+        logger: true // Log to console
       });
     const sendEmail = async ({ email, subject, message }) => {
-        const mailOptions = {
+      try {
+          const mailOptions = {
             from: process.env.EMAIL_USER, // must be the Gmail sender
             to: email,
             subject,
@@ -23,8 +29,14 @@
         console.log("hi hello;",mailOptions);
         const info = await transporter.sendMail(mailOptions);
         console.log("Email sent: " + info.response);
+        return info;
+      }
+      catch (error) {
+          console.error('Error sending email:', error);
+          throw error; // Rethrow to handle in calling function
+        } 
     }
-
+  module.exports = sendEmail;
 
   //  const sendEmail = async ({ email, subject, message }) => {
   //     const msg = {
@@ -46,4 +58,3 @@
   //   }
   //  }
 
-  module.exports = sendEmail;
