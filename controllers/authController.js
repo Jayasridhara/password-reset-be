@@ -27,8 +27,13 @@ exports.login = async (req, res) => {
 
     // Generate token
     const token = generateToken(user._id);
-    res.cookie('token', token, { httpOnly: true });
-
+    console.log("token;",token);
+       res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        });
     res.status(200).json({
       success: true,
       message: 'Login successful',
@@ -163,8 +168,11 @@ exports.me = async (req, res) => {
     }
 }
 exports.logout = async (req, res) => {
-    try {
-        res.clearCookie('token');
+      try {
+         res.clearCookie('token', {
+            secure: NODE_ENV === 'production',
+            sameSite: NODE_ENV === 'production' ? 'none' : 'lax'
+        });
         res.status(200).json({ message: 'Logout successful' });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
