@@ -9,10 +9,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: process.env.WEB_APP_URL ,
-     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-     credentials: true
+    origin: process.env.WEB_APP_URL,
+    credentials: true
 }));
+
 
 app.use(express.json()); // Body parser for JSON requests
 app.use(express.urlencoded({ extended: true }));
