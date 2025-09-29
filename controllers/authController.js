@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
 
     // Generate token
     const token = generateToken(user._id);
-    
+
      res.cookie('token', token, {
             httpOnly: true,
             secure: true, // Required for cross-origin cookies
@@ -82,8 +82,11 @@ exports.forgotPassword = async (req, res) => {
         const user = await User.findOne({ email :email });
         console.log("user",user)
         if (!user) {
-            return res.status(200).json({ success: true, message: 'If an account with that email exists, a password reset link has been sent.' });
-        }
+          return res.status(404).json({
+        success: false,
+        message: "User not found in database. Please register first.",
+      });
+        } 
 
         // Generate reset token
         const resetToken = crypto.randomBytes(32).toString('hex');
@@ -111,7 +114,7 @@ exports.forgotPassword = async (req, res) => {
                 message,
             });
 
-            res.status(200).json({ success: true, message: 'Password reset link sent to your email.' });
+            res.status(200).json({ success: true, message: 'If an account with that email exists, a password reset link has been sent.' });
         } catch (error) {
             console.log(error);
             // If email fails, clear the token to prevent a broken link
