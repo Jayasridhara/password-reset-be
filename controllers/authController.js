@@ -114,7 +114,7 @@ exports.forgotPassword = async (req, res) => {
                 message,
             });
 
-            res.status(200).json({ success: true, message: 'If an account with that email exists, a password reset link has been sent.' });
+            res.status(200).json({ success: true, message: 'If an account with that email exists, a password reset link has been sent. Check spam mail if it is not received' });
         } catch (error) {
             console.log(error);
             // If email fails, clear the token to prevent a broken link
