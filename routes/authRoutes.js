@@ -11,6 +11,4 @@ authRoutes.post('/forgotpassword', forgotPassword);
 authRoutes.post('/resetpassword/:token', resetPassword);
 authRoutes.get('/me',isAuthenticated, me);
 authRoutes.post('/logout', isAuthenticated, logout);
-
-authRoutes.get('/',getall)
 module.exports = authRoutes;    
